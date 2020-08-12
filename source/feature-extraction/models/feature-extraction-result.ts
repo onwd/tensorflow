@@ -1,7 +1,14 @@
 import { Feature } from './feature';
+import { FeatureExtractionStatus } from '../enums';
 
 export class FeatureExtractionResult {
   public features: Array<Feature>;
+
+  public get status(): FeatureExtractionStatus {
+    return this.features.every((feature) => !feature.error)
+      ? FeatureExtractionStatus.SUCCEEDED
+      : FeatureExtractionStatus.FAILED;
+  }
 
   public get inputs(): Array<number> {
     if (!this._inputs) {
