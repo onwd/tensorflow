@@ -1,7 +1,7 @@
 import { FeatureLabel } from '../enums';
 import { Feature } from './feature';
 
-export class FeatureExtractionResult<T> {
+export abstract class FeatureExtractionResult<T> {
   public features: Array<Feature<T>>;
 
   public get isUncertain(): boolean {
@@ -11,7 +11,7 @@ export class FeatureExtractionResult<T> {
   public get inputs(): Array<number> {
     if (!this._inputs) {
       this._inputs = this.features
-        .filter((feature) => { /* Define criteria to get input features only here */ })
+        .filter((feature) => this.isInputFeature(feature))
         .map((feature) => feature.value);
     }
 
@@ -21,7 +21,7 @@ export class FeatureExtractionResult<T> {
   public get outputs(): Array<number> {
     if (!this._outputs) {
       this._outputs = this.features
-        .filter((feature) => { /* Define criteria to get output features only here */ })
+        .filter((feature) => this.isOutputFeature(feature))
         .map((feature) => feature.value);
     }
 
@@ -30,4 +30,7 @@ export class FeatureExtractionResult<T> {
 
   protected _inputs: Array<number>;
   protected _outputs: Array<number>;
+
+  protected abstract isInputFeature(feature: Feature<T>): boolean;
+  protected abstract isOutputFeature(feature: Feature<T>): boolean;
 }
