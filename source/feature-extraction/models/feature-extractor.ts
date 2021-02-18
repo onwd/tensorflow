@@ -1,6 +1,7 @@
 import { Feature } from './feature';
-import { FeatureExtractorSharedData } from './feature-extractor-shared-data';
 
-export abstract class FeatureExtractor<T> {
-  public abstract extract(data: T, sharedData: FeatureExtractorSharedData): Feature | Promise<Feature>;
+export abstract class FeatureExtractor<D, T, S> {
+  public abstract featureType: T;
+
+  public abstract extract(data: D, sharedData: S): Feature<T> | Promise<Feature<T>>;
 }

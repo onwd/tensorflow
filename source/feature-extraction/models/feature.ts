@@ -1,17 +1,15 @@
-import { FeatureType } from '../enums';
-
-export class Feature {
-  public type: FeatureType;
-  public probability: number | null;
+export class Feature<T> {
+  public type: T;
+  public label: string;
+  public value: number;
   public reason: string | null;
-  public error: Error | null;
   public timeTaken: number;
 
-  constructor(feature: Partial<Feature>) {
+  constructor(feature: Partial<Feature<T>>) {
     this.type = feature.type;
-    this.probability = feature.probability ?? null;
+    this.label = feature.label;
+    this.value = feature.value;
     this.reason = feature.reason ?? null;
-    this.error = feature.error ?? null;
     this.timeTaken = feature.timeTaken;
   }
 }

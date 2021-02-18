@@ -1,2 +1,2 @@
-export { FeatureExtractionStatus } from './feature-extraction-status';
-export { FeatureType } from './feature-type';
+export * from './feature-label';
+export * from './feature-value';
